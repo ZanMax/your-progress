@@ -1,6 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
-    path("", views.Progress.as_view(), name="tenses"),
+    path("", login_required(views.Progress.as_view()), name="progress"),
 ]
