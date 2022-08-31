@@ -16,7 +16,6 @@ class Projects(TimeStampedModel):
 
 class Commit(TimeStampedModel):
     project = models.ForeignKey(Projects, on_delete=models.CASCADE)
-    date = models.DateField()
     message = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
