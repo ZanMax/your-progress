@@ -25,8 +25,9 @@ class Progress(View):
             dates[day_number].append(dt)
 
         days = list(calendar.day_name)
-        first_day = daterange[0].weekday()
-        days = days[first_day:] + days[:first_day]
+
+        # first_day = daterange[0].weekday()
+        # days = days[first_day:] + days[:first_day]
 
         fig = px.imshow(counts,
                         color_continuous_scale="greens",
