@@ -7,12 +7,26 @@ from django.views import View
 from progress.models import Commit
 from progress.utils import date_range
 import plotly.express as px
+from progress.utils import create_chart
 
 
 class Progress(View):
     def get(self, request):
-        commits = Commit.objects.filter(user=request.user).order_by("created")
+        commits = Commit.objects.filter(user=request.user).order_by("created").select_related("project").all()
 
+        project_commits = {}
+
+        for c in commits:
+            if c.project.name not in project_commits:
+                project_commits[c.project.name] = []
+            # project_commits[c.project.name].append(c)
+            project_commits[c.project.name].append(c.created)
+
+        projects_chart = {}
+        for project, commits in project_commits.items():
+            print(project)
+            projects_chart[project] = create_chart(commits)
+        """
         now = timezone.now()
         start = now - timezone.timedelta(days=364)
         daterange = date_range(start, now)
@@ -26,16 +40,17 @@ class Progress(View):
 
         days = list(calendar.day_name)
 
-        # first_day = daterange[0].weekday()
-        # days = days[first_day:] + days[:first_day]
-
         fig = px.imshow(counts,
                         color_continuous_scale="greens",
                         x=dates[0],
                         y=days,
-                        height=320,
-                        width=1300
+                        height=280,
+                        width=1200
                         )
+
         fig.update_traces({"xgap": 5, "ygap": 5})
         chart = fig.to_html()
-        return render(request, "progress.html", {"chart": chart})
+        chart2 = fig.to_html()
+        """
+
+        return render(request, "progress.html", {'projects': projects_chart.items()})

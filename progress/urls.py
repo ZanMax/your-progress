@@ -4,5 +4,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", login_required(views.Progress.as_view()), name="progress"),
+    path("", login_required(views.Progress.as_view(), login_url='/admin'), name="progress"),
 ]

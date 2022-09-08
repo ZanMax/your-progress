@@ -5,6 +5,10 @@
     <title>Your progress</title>
 </head>
 <body>
-    {{ chart|safe }}
+<h1>Your progress</h1>
+{% for key,value in projects %}
+    {{ key }}
+    {{ value | safe }}
+{% endfor %}
 </body>
 </html>
