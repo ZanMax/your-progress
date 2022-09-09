@@ -6,9 +6,12 @@
 </head>
 <body>
 <h1>Your progress</h1>
-{% for key,value in projects %}
-    {{ key }}
-    {{ value | safe }}
+
+{% for project, chart in projects.items %}
+    <p>{{ project }}</p>
+    {{ chart | safe }}
 {% endfor %}
+
+
 </body>
 </html>
