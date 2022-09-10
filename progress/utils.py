@@ -13,6 +13,7 @@ def date_range(start, end):
 
 def create_chart(commits):
     now = timezone.now()
+    print(now)
     start = now - timezone.timedelta(days=364)
     daterange = date_range(start, now)
 
@@ -37,8 +38,10 @@ def create_chart(commits):
                         color_continuous_scale="greens",
                         x=dates[0],
                         y=days,
-                        height=280,
-                        width=1200
+                        height=320,
+                        width=1200,
+                        labels=dict(x="Date", y="Day of the week", color="Commits"),
+                        title=project,
                         )
 
         fig.update_traces({"xgap": 5, "ygap": 5})

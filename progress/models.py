@@ -13,6 +13,9 @@ class Projects(TimeStampedModel):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = "Projects"
+
 
 class Commit(TimeStampedModel):
     project = models.ForeignKey(Projects, on_delete=models.CASCADE)
