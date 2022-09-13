@@ -8,7 +8,6 @@
 <h1>Your progress</h1>
 
 {% for project, chart in projects.items %}
-    <h2>{{ project }}</h2>
     {{ chart | safe }}
 {% endfor %}
 
