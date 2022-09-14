@@ -1,3 +1,4 @@
+from django.db import connection
 from django.utils import timezone
 import plotly.express as px
 import calendar
@@ -8,13 +9,13 @@ def date_range(start, end):
     dates = []
     for i in range(delta.days):
         dates.append(start + timezone.timedelta(days=i))
+    dates.append(end)
     return dates
 
 
 def create_chart(commits):
     now = timezone.now()
-    print(now)
-    start = now - timezone.timedelta(days=364)
+    start = now - timezone.timedelta(days=363)
     daterange = date_range(start, now)
 
     projects_list = []
@@ -26,6 +27,7 @@ def create_chart(commits):
     for project in projects_list:
         counts = [[] for _ in range(7)]
         dates = [[] for _ in range(7)]
+
         for dt in daterange:
             count = commits.filter(created__date=dt).filter(project__name=project).count()
             day_number = dt.weekday()
@@ -33,6 +35,8 @@ def create_chart(commits):
             dates[day_number].append(dt)
 
         days = list(calendar.day_name)
+        first_day = daterange[0].weekday()
+        days = days[first_day:] + days[:first_day]
 
         fig = px.imshow(counts,
                         color_continuous_scale="greens",
