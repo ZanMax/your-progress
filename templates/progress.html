@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>Your progress</title>
+    {% load static %}
+
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/github_contribution.js' %}"></script>
+    <link href="{% static 'css/github_contribution_graph.css' %}" media="all" rel="stylesheet"/>
+
+    <script type="text/javascript">
+        function drawChart(divId, userData) {
+            $(divId).github_graph({
+                data: userData,
+                texts: ['completed task', 'completed tasks']
+            });
+        }
+
+        $(document).ready(function () {
+            {% for k, v in projects.items %}
+                {% load remove_substr %}
+                divId = {{ k | remove_substr:' '}};
+                userData = {{ v }};
+                drawChart(divId, userData);
+            {% endfor %}
+        });
+    </script>
 </head>
 <body>
 <h1>Your progress</h1>
 
-{% for project, chart in projects.items %}
-    {{ chart | safe }}
+{% for k, v in projects.items %}
+    <h2>{{ k | title }}</h2>
+    <div id="{{ k | remove_substr:' ' }}"></div>
 {% endfor %}
 
 
