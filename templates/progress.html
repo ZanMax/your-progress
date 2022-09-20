@@ -5,9 +5,13 @@
     <title>Your progress</title>
     {% load static %}
 
+    <link href="{% static 'css/github_contribution_graph.css' %}" media="all" rel="stylesheet"/>
+    <link href="{% static 'css/bootstrap.min.css' %}" media="all" rel="stylesheet"/>
+
     <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/github_contribution.js' %}"></script>
-    <link href="{% static 'css/github_contribution_graph.css' %}" media="all" rel="stylesheet"/>
+    <script type="text/javascript" src="{% static 'js/hBarChart.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     <script type="text/javascript">
         function drawChart(divId, userData) {
@@ -25,16 +29,78 @@
                 drawChart(divId, userData);
             {% endfor %}
         });
+
+        $(function () {
+            $(".horizontal-chart-demo").hBarChart({
+                bgColor: '#418383',
+                textColor: '#fff',
+                show: 'data',
+                sorting: false,
+                maxStyle: {
+                    bg: '#BF0000',
+                    text: '#FFF'
+                }
+            });
+        })
     </script>
 </head>
 <body>
-<h1>Your progress</h1>
 
-{% for k, v in projects.items %}
-    <h2>{{ k | title }}</h2>
-    <div id="{{ k | remove_substr:' ' }}"></div>
-{% endfor %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Your Progress</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">About</a>
+            </div>
+        </div>
+    </div>
+</nav>
 
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        Progress
+                    </div>
+                    <div class="card-body">
+                        {% for k, v in projects.items %}
+                            <h2>{{ k | title }}</h2>
+                            <div id="{{ k | remove_substr:' ' }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        Top progress
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <ul class="horizontal-chart-demo">
+                                {% for k, v in projects.items %}
+                                    {{ k | title }}
+                                    <li data-data="{{ v | length }}">
+                                        {{ k | title }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
 </body>
 </html>
