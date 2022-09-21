@@ -1,43 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Your progress</title>
-    {% load static %}
+{% extends "base.html" %}
+{% block title %}
+    Index
+{% endblock %}
+{% load static %}
+{% block content %}
+    <main role="main">
 
-    <link href="{% static 'css/github_contribution_graph.css' %}" media="all" rel="stylesheet"/>
-    <link href="{% static 'css/bootstrap.min.css' %}" media="all" rel="stylesheet"/>
-
-    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-
-
-</head>
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Your Progress</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-                <a class="nav-link" aria-current="page" href="#">Login</a>
-                <a class="nav-link" href="#">Sign up</a>
+        <!-- Main jumbotron for a primary marketing message or call to action -->
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="display-3">Start tracking your progress!</h1>
+                <h5 class="h5_text">We created this project to help you with your productivity. This tool helps you
+                    track all your
+                    activities like sports, work, hobbies</h5>
             </div>
         </div>
-    </div>
-</nav>
 
-<section>
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Sign up</h3>
+                    <p>Just create your account</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Create first project</h3>
+                    <p>Create your first project like: sport</p>
+                </div>
+                <div class="col-md-4">
+                    <h3>Start to commit your activities</h3>
+                    <p>It's fun to control your activities.</p>
+                </div>
+            </div>
 
-        </div>
-    </div>
-</section>
-</body>
-</html>
+            <hr>
+            <div class="row">
+                <img src="{% static 'img/screenshot01.png' %}" alt="your progress">
+            </div>
+        </div> <!-- /container -->
+
+    </main>
+
+{% endblock %}
