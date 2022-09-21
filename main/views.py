@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from django.views import View
 
@@ -17,9 +18,13 @@ def register_request(request):
         form = NewUserForm(request.POST)
         if form.is_valid():
             user = form.save()
+            progress_group = Group.objects.get(name='progress')
+            progress_group.user_set.add(user)
+            user.is_staff = True
+            user.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect("main:homepage")
+            return redirect("/admin/progress/projects/")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
     return render(request=request, template_name="register.html", context={"register_form": form})
