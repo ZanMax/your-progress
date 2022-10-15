@@ -25,7 +25,7 @@ spec:
       - name: regcred
       containers:
       - name: your-progress
-        image: hub.docker.bar/max/your-progress:0.0.1
+        image: hub.docker.bar/max/your-progress-arm64:0.0.1
         # image: hub.docker.bar/your-progress:453
         imagePullPolicy: Always
         env:
@@ -43,11 +43,11 @@ spec:
           value: '*'
         resources:
           limits:
-            cpu: '300m'
-            memory: '300Mi'
+            cpu: '2000m'
+            memory: '2000Mi'
           requests:
-            cpu: '50m'
-            memory: '50Mi'
+            cpu: '2000m'
+            memory: '2000Mi'
         ports:
         - containerPort: 8000
         readinessProbe:
@@ -55,17 +55,17 @@ spec:
             path: /
             #path: /api/v1/healthcheck
             port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 15
-          timeoutSeconds: 5
-          failureThreshold: 5
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 10
         livenessProbe:
           httpGet:
             path: /
             #path: /api/v1/healthcheck
             port: 8000
-          initialDelaySeconds: 10
-          periodSeconds: 15
-          timeoutSeconds: 5
-          failureThreshold: 5
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 10
       restartPolicy: Always

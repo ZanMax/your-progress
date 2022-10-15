@@ -1,0 +1,11 @@
+.idea
+k8s
+venv
+run.sh
+README.md
+LICENSE
+.git
+.gitignore
+.DS_Store
+Dockerfile
+migrations
