@@ -43,10 +43,8 @@ spec:
           value: '*'
         resources:
           limits:
-            cpu: '2000m'
             memory: '2000Mi'
           requests:
-            cpu: '2000m'
             memory: '2000Mi'
         ports:
         - containerPort: 8000
