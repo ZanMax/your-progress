@@ -21,12 +21,9 @@ spec:
       labels:
         app: your-progress
     spec:
-      imagePullSecrets:
-      - name: regcred
       containers:
       - name: your-progress
-        image: hub.docker.bar/max/your-progress-arm64:0.0.1
-        # image: hub.docker.bar/your-progress:453
+        image: 10.0.0.200:5000/progress:0.0.1-arm
         imagePullPolicy: Always
         env:
         - name: APP_TYPE
